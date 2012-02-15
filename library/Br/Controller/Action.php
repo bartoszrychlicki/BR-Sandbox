@@ -34,40 +34,5 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
             ->getPluginResource('db');
 		$this->_db = $resource->getDbAdapter();
         
-        /* Init navigation */
-        $this->_initNavigation();
 
     }
-    
-    public function back() {
-        $back = $_SERVER['HTTP_REFERER'];
-        $this->_redirect($back);
-    }
-
-    public function preDispatch()
-    {
-
-
-    }
-
-    /**
-     * Initialize navigation
-     * @access protected
-     */
-    protected function _initNavigation() {
-
-        $resource           = 'navigation';
-        $pages              = null;
-
-        $filename = APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR . 'navigation.xml';
-
-        if ( is_readable($filename) ) {
-            $pages = new Zend_Config_Xml($filename, 'nav');
-        }
-
-        $container = new Zend_Navigation($pages);
-        Zend_Registry::set(get_class($container), $container);
-
-        return $container;
-    }
-}
