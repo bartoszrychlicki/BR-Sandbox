@@ -1,0 +1,20 @@
+Author: Bartosz Rychlicki
+E-mail: b@br-design.pl
+Date: 14-02-2012
+
+BR-SANDBOX
+
+Brief description: BR-SANDBOX is just a simple Zend Framework Project (v. 1.11) with some 
+sample code and tools setup of ease of use on later project. 
+
+Im initlializing compontents such as:
+ * Zend_Log
+ * ZFDebug
+ * Layout
+ * Zend_Test
+
+Also Im making few libraries of my own for later use.
+
+For the time I'm writing this, it's only an private, test project to learn Git and ZF bit more.
+It could evolve to something like BR-Framework with will be extendet ZF framework with some
+custom libraries and ready 
