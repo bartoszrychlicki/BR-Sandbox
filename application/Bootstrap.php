@@ -58,7 +58,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$options = array(
 			'plugins' => array('Variables',
 		    'Database' => array('adapter' => $db), 
-            //'File' => array('basePath' => '/path/to/project'),
+            'File' => array('basePath' => APPLICATION_PATH),
             //'Cache' => array('backend' => $cache->getBackend()), 
             'Exception')		
 		);
