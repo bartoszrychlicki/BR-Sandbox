@@ -7,6 +7,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$loader->registerNamespace('Br_');
 		$loader->registerNamespace('ZFDebug');
     }
+
+	protected function _initPlugins()
+	{
+	        $front = Zend_Controller_Front::getInstance(); 
+	
+	        // Layout for modules initialization by FC plugin
+	        $front->registerPlugin(new Br_Plugin_ModuleLayout());
+	}
+	
 	protected function _initDoctype()
     {
         $this->bootstrap('view');
