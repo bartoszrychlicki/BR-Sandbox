@@ -1,12 +1,6 @@
 <?php
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-    protected function _initAutoload() {
-		require_once 'Zend/Loader/Autoloader.php';
-		$loader = Zend_Loader_Autoloader::getInstance();
-		$loader->registerNamespace('Br_');
-		$loader->registerNamespace('ZFDebug');
-    }
 
 	protected function _initPlugins()
 	{

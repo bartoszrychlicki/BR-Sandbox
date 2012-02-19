@@ -5,16 +5,20 @@ Date: 14-02-2012
 BR-SANDBOX
 
 Brief description: BR-SANDBOX is just a simple Zend Framework Project (v. 1.11) with some 
-sample code and tools setup of ease of use on later project. 
+sample code and tools setup for ease of use on later project. 
 
 Im initlializing compontents such as:
  * Zend_Log
  * ZFDebug
  * Layout
  * Zend_Test
+ * Front Controller plugins
 
-Also Im making few libraries of my own for later use.
+Also, I'm making few libraries of my own for later use in the "Br" domain.
 
 For the time I'm writing this, it's only an private, test project to learn Git and ZF bit more.
-It could evolve to something like BR-Framework with will be extendet ZF framework with some
-custom libraries and ready 
+It could evolve to something more like BR-Framework witch will be extended ZF with some
+custom libraries.
+
+TODO
+@ initialization of Zend_Log or Zend_Db via Action Controller helper rather than init method of Br_Controller_Action
