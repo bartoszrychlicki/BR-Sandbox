@@ -5,7 +5,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initPlugins()
 	{
 	        $front = Zend_Controller_Front::getInstance(); 
-	
 	        // Layout for modules initialization by FC plugin
 	        $front->registerPlugin(new Br_Plugin_ModuleLayout());
 	}

@@ -1,18 +1,16 @@
 <?php
 
-class IndexController extends Br_Controller_Action
+class Admin_IndexController extends Zend_Controller_Action
 {
 
     public function init()
     {
         /* Initialize action controller here */
-		parent::init();
     }
 
     public function indexAction()
     {
         // action body
-		$this->_logger->debug($this->getRequest());
     }
 
 

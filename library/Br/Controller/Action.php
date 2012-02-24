@@ -20,13 +20,8 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
 							->getParam('bootstrap')
 							->getPluginResource('log');
 		$this->_logger = $loggerResource->getLog();
-		
         /* Initialize action controller here */
         $this->_config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
-        
-        /* Fetching users for menu in the top */
-        $user = new Application_Model_DbTable_User();
-        $this->view->userslist = $user->fetchAll()->toArray();
 
         /* Fetching DB adapter */
         $resource = $this->getFrontController()
@@ -34,8 +29,6 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
             ->getPluginResource('db');
 		$this->_db = $resource->getDbAdapter();
         
-        /* Init navigation */
-        $this->_initNavigation();
 
     }
 }
