@@ -40,10 +40,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initFireBugLogger()
 	{
 		if(!$this->_isDebugEnabled('firebuglogger')) return false;
-		if(!$this->hasPluginResource) return false;
+		if(!$this->hasPluginResource('log')) return false;
 		$loggerResource = $this->getPluginResource('log');
 		$logger = $loggerResource->getLog();
-		
 		$fireLogger = new Zend_Log_Writer_Firebug();
 		$fireLogger->addFilter(Zend_Log::DEBUG);
 		$logger->addWriter($fireLogger);
@@ -59,7 +58,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		}
 		$options = array(
 			'plugins' => array('Variables',
-		    'Database' => array('adapter' => $db), 
+		    //'Database' => array('adapter' => $db), 
             'File' => array('basePath' => APPLICATION_PATH),
             //'Cache' => array('backend' => $cache->getBackend()), 
             'Exception')		
