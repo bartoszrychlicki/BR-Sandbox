@@ -12,13 +12,12 @@ class IndexController extends Br_Controller_Action
     public function indexAction()
     {
         // action body
-		$this->_logger->debug($this->getRequest());
-		$this->_logger->debug('test');
 		$auth = Zend_Auth::getInstance();
+
 		if($auth->hasIdentity()) {
-			$this->_logger->log('mam id',2);
+			$this->_logger->debug('mam id');
 		} else {
-			$this->_logger->log('nie mam id',2);
+			$this->_logger->debug('nie mam id');
 		}
     }
 

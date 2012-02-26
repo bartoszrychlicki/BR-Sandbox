@@ -30,7 +30,7 @@
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
               <li><a href="<?= $this->url(array('module' => 'admin')); ?>">Admin</a></li>
-              <li><a href="<?= $this->url(array('module' => 'adminUser', 'controller' => 'index')); ?>">Users</a></li>
+              <li><a href="<?= $this->url(array('module' => 'user', 'controller' => 'index')); ?>">Users</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -38,6 +38,14 @@
     </div>
 
     <div class="container">
+	<?php if($this->messages):?>
+		<?php foreach($this->messages as $msg):?>
+			<div class="alert alert-block">
+				<a class="close" data-dismiss="alert">×</a>
+				<?= $msg; ?>
+			</div>
+		<?php endforeach;?>
+	<?php endif; ?>
 	<?php echo $this->layout()->content ?>
     </div> <!-- /container -->
 </body>

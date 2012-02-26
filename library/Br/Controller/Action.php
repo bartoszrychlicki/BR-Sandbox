@@ -29,7 +29,11 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
             ->getParam('bootstrap')
             ->getPluginResource('db');
 		$this->_db = $resource->getDbAdapter();
-        
-
+		
     }
+
+	public function postDispatch()
+	{
+		$this->_logger->debug('Post dispatch');
+	}
 }

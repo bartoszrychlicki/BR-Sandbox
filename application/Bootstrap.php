@@ -4,9 +4,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	protected function _initPlugins()
 	{
-	        $front = Zend_Controller_Front::getInstance(); 
-	        // Layout for modules initialization by FC plugin
-	        $front->registerPlugin(new Br_Plugin_ModuleLayout());
+		$front = Zend_Controller_Front::getInstance(); 
+		// Layout for modules initialization by FC plugin
+		$front->registerPlugin(new Br_Plugin_ModuleLayout());
 	}
 	
 	protected function _initDoctype()
@@ -15,6 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('view');
         $view->doctype('XHTML1_STRICT');
     }
+
 
 	protected function _initJquery()
 	{
