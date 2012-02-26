@@ -20,6 +20,7 @@ class User_IndexController extends Br_Controller_Action
 					// access granted
 					$this->_logger->debug('access granted');					
 					$this->_helper->FlashMessenger('Zostałeś zalogowany');
+					$this->_helper->Redirector('index', 'index', '');
 				} else {
 					$this->_logger->debug('access denied');
 					$this->_helper->FlashMessenger('Podałeś zły login lub hasło');
