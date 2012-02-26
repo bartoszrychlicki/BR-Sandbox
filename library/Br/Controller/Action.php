@@ -20,7 +20,7 @@ abstract class Br_Controller_Action extends Zend_Controller_Action {
 							->getParam('bootstrap')
 							->getPluginResource('log');
 		$this->_logger = $loggerResource->getLog();
-		$this->_logger->debug('jest w action');
+		
         /* Initialize action controller here */
         $this->_config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
 		Zend_Registry::set('config', $this->_config);
