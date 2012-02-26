@@ -16,6 +16,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
     }
 
+	protected function _initViewHelpersPaths()
+	{
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Noumenal_View_Helper');
+		$view->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Br_View_Helper');
+		$view->addHelperPath('EasyBib/View/Helper', 'EasyBib_View_Helper');
+		
+	}
+
+	protected function _initTwitterBootstrapJs() 
+	{
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+		$view->headScript()->appendFile(
+		    '/js/bootstrap.min.js',
+		    'text/javascript'
+		);
+		
+		$script = '$(".alert").alert()';
+		$view->headScript()->appendScript($script, $type = 'text/javascript', $attrs = array());
+
+		
+	}
 
 	protected function _initJquery()
 	{
@@ -23,7 +47,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('view');
 
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
-        //$view->JQuery()->setLocalPath('/js/jquery-1.7.1.min.js');
+        $view->JQuery()->setLocalPath('/js/jquery-1.7.1.min.js');
         $view->JQuery()->enable();
 	}
 

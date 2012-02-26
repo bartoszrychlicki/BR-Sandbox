@@ -19,17 +19,17 @@ class User_IndexController extends Br_Controller_Action
                 if($auth = $this->_helper->Authorize($values['username'], $values['password'])) {
 					// access granted
 					$this->_logger->debug('access granted');					
-					$this->_helper->FlashMessenger('Zostałeś zalogowany');
+					$this->_helper->FlashMessenger(array('success' => 'Zostałeś zalogowany'));
 					$this->_helper->Redirector('index', 'index', '');
 				} else {
 					$this->_logger->debug('access denied');
-					$this->_helper->FlashMessenger('Podałeś zły login lub hasło');
+					$this->_helper->FlashMessenger(array('error' => 'Podałeś zły login lub hasło'));
 				}
             } else {
+					$form->buildBootstrapErrorDecorators();
 					$this->_helper->FlashMessenger('Wypełnij poprawnie formularz');
 			}
 		}
-		$this->view->messages = $this->_helper->FlashMessenger->getCurrentMessages();
 		$this->view->form = $form;
     }
 }

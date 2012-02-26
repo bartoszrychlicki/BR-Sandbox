@@ -1,84 +1,108 @@
 <?php
 /**
- *
- * @copyright  2009 Mohammed Alsharaf
- * @author     Mohamed Alsharaf (mohamed.alsharaf@gmail.com)
- * @category   Moo
- * @package    Moo_View
- * @copyright  Copyright (c) 2009-2010 Mohammed Alsharaf.
- * @version    Release: 0.0.2
- * @link       http://jamandcheese-on-phptoast.com/
- */
-class Br_View_Helper_Messenger extends Zend_View_Helper_Abstract
+ * Noumenal PHP Library.
+ *
+ * PHP classes built on top of Zend Framework. (http://framework.zend.com/)
+ *
+ * Bug Reports: support@noumenal.co.uk
+ * Questions  : https://noumenal.fogbugz.com/default.asp?noumenal
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file noumenal-new-bsd-licence.txt.
+ * It is also available through the world-wide-web at this URL:
+ *
+ * http://noumenal.co.uk/license/new-bsd
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@noumenal.co.uk so we can send you a copy immediately.
+ *
+ * ATTRIBUTION
+ *
+ * Beyond maintaining the Copyright Notice and Licence, attribution is
+ * appreciated but not required. Please attribute where appropriate by
+ * linking to:
+ *
+ * http://noumenal.co.uk/
+ *
+ * @package    Noumenal
+ * @author     Carlton Gibson <carlton.gibson@noumenal.co.uk>
+ * @copyright  Copyright (c) 2009 Noumenal Software Ltd. (http://noumenal.co.uk/)
+ * @license    http://noumenal.co.uk/license/new-bsd     New BSD License
+ * @version    $Revision: 3 $ $Date: 2009-08-13 16:02:49 +0100 (Thu, 13 Aug 2009) $
+ */
+/**
+ * View Helper to Display Flash Messages.
+ *
+ * Checks for messages from previous requests and from the current request.
+ *
+ * Checks for `array($key => $value)` pairs in FlashMessenger's messages array.
+ * If such a pair is found, $key is taken as the "message level", $value as the
+ * message. (Simple strings are provided a default level of 'warning'.)
+ *
+ * NOTE: MESSAGES ARE PRESUMED TO BE SAFE HTML. IF REDISPLAYING USER
+ * INPUT, ESCAPE ALL MESSAGES PRIOR TO ADDING TO FLASHMESSENGER.
+ *
+ * @package Noumenal_View
+ */
+class Noumenal_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
 {
-    const DEFAULT_MSG = 'info';
- 
-    protected $_messageKeys = array(
-        'msg_message',
-        'error_message',
-        'info_message',
-        'success_message',
-        'warning_message',
-    );
- 
-    protected $_flashMessenger = null;
- 
-    public function messenger($messages = null)
-    {
-        if ($messages !== null) {
-            return $this->_renderInjectedMessages($messages);
-        }
-        $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
- 
-        foreach ($this->_messageKeys as $messageKey) {
-            $messages = $this->_getMessages($messageKey);
-            if ($messages) {
-                echo $this->_renderMessage($messages,$messageKey);
-            }
-            unset($messages);
-        }
-    }
- 
-    protected function _renderInjectedMessages($messages)
-    {
-        if (!is_array($messages)) {
-            return $this->_renderMessage((string) $messages,self::DEFAULT_MSG);
-        }
- 
-        $return = '';
-        foreach ($messages as $messageKey => $message) {
-            $return  .= $this->_renderMessage($message, $messageKey . '_message');
-        }
-        return $return;
-    }
-    protected function _getMessages($messageKey)
-    {
-        $result = array();
-        $this->_flashMessenger->setNamespace($messageKey);
- 
-        if ($this->_flashMessenger->hasMessages()) {
-            $result = $this->_flashMessenger->getMessages();
-        }
- 
-        // check view object
-        if (isset($this->view->$messageKey)) {
-            array_push($result, $this->view->$messageKey);
-        }
- 
-        //add any messages from this request
-        if ($this->_flashMessenger->hasCurrentMessages()) {
-            $result = array_merge( $result, $this->_flashMessenger->getCurrentMessages());
-            //we don?t need to display them twice.
-            $this->_flashMessenger->clearCurrentMessages();
-        }
-        return $result;
-    }
- 
-    protected function _renderMessage($message, $name)
-    {
-        if (!is_array($message)) {
-            $message = array($message);
-        }
-        return $this->view->htmlList($message, false, array('class'=>$name), false);
-    }
+    /**
+     * @var Zend_Controller_Action_Helper_FlashMessenger
+     */
+    private $_flashMessenger = null;
+
+    /**
+     * Display Flash Messages, customized for Twitter Bootstrap alert standards.
+     *
+     * @param  string $key Message level for string messages
+     * @param  string $template Format string for message output
+     * @return string Flash messages formatted for output
+     */
+    public function flashMessenger($key = 'warning',
+                                   $template='<div class="fade in alert alert-%s">%s<a class="close" data-dismiss="alert">×</a></div>')
+    {
+        $flashMessenger = $this->_getFlashMessenger();
+
+        //get messages from previous requests
+        $messages = $flashMessenger->getMessages();
+        //add any messages from this request
+        if ($flashMessenger->hasCurrentMessages()) {
+            $messages = array_merge(
+                $messages,
+                $flashMessenger->getCurrentMessages()
+            );
+            //we don't need to display them twice.
+            $flashMessenger->clearCurrentMessages();
+        }
+        //initialise return string
+        $output ='';
+
+        //process messages
+        foreach ($messages as $message)
+        {
+            if (is_array($message)) {
+                list($key,$message) = each($message);
+            }
+            $output .= sprintf($template,$key,$message);
+        }
+        return $output;
+    }
+
+    /**
+     * Lazily fetches FlashMessenger Instance.
+     *
+     * @return Zend_Controller_Action_Helper_FlashMessenger
+     */
+    public function _getFlashMessenger()
+    {
+        if (null === $this->_flashMessenger) {
+            $this->_flashMessenger =
+                Zend_Controller_Action_HelperBroker::getStaticHelper(
+                    'FlashMessenger');
+        }
+        return $this->_flashMessenger;
+    }
 }

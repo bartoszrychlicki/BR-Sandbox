@@ -1,13 +1,14 @@
 <?php
 
-class User_Form_Login extends Zend_Form
+class User_Form_Login extends EasyBib_Form
 {
 
     public function init()
     {
         $this->setName("login");
         $this->setMethod('post');
-             
+        $this->setAttrib('class', 'form-horizontal');
+        
         $this->addElement('text', 'username', array(
             'filters'    => array('StringTrim', 'StringToLower'),
             'validators' => array(
@@ -25,13 +26,22 @@ class User_Form_Login extends Zend_Form
             'required'   => true,
             'label'      => 'Hasło:',
         ));
+		
+		$submit      = new Zend_Form_Element_Button('submit');
+        
+        $submit->setLabel('Save');
+		$this->addElement($submit);
+		
+		// add display group
+        $this->addDisplayGroup(
+            array('username', 'password', 'submit'),
+            'users'
+        );
+        $this->getDisplayGroup('users')->setLegend('Login');
 
-        $this->addElement('submit', 'login', array(
-            'required' => false,
-            'ignore'   => true,
-            'class'	   => 'btn',
-            'label'    => 'Login',
-        ));
+	    // set decorators
+	    EasyBib_Form_Decorator::setFormDecorator($this, EasyBib_Form_Decorator::BOOTSTRAP, 'submit', 'cancel');
+
     }
 
 }
