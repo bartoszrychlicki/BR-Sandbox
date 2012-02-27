@@ -32,5 +32,20 @@ class User_IndexController extends Br_Controller_Action
 		}
 		$this->view->form = $form;
     }
+
+	public function logoutAction()
+	{
+		$auth = Zend_Auth::getInstance();
+		$auth->clearIdentity();
+		$this->_helper->FlashMessenger(array('info' => 'Poprawnie wylogowano z systemu'));
+		$this->_helper->Redirector('index');
+	}
+	
+	public function profileAction()
+	{
+		$auth = Zend_Auth::getInstance();
+		if(!$identity = $auth->getIdentity()) throw new Exception("No user is logged in, so You cant checkout Your profile", 500);
+		$this->view->identity = $identity;
+	}
 }
 
