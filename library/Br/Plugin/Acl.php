@@ -16,6 +16,11 @@ class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		
 		$acl = new Br_Acl_Acl();
 		$loggedUser = Zend_Auth::getInstance()->getIdentity();
+		if(!$loggedUser) {
+			$userId = 1;
+		} else {
+			$userId = $loggedUser->id;
+		}
 		
 	    if($acl->isAllowed($loggedUser->id, $request, null) === false) {
 			//If the user has no access we send him elsewhere by changing the request
