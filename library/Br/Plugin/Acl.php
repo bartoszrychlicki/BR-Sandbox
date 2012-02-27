@@ -22,7 +22,7 @@ class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 			$userId = $loggedUser->id;
 		}
 		
-	    if($acl->isAllowed($loggedUser->id, $request, null) === false) {
+	    if($acl->isAllowed($userId, $request, null) === false) {
 			//If the user has no access we send him elsewhere by changing the request
 			$messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
 			$messenger->addMessage(array('warning' => 'You dont have access here, please login'));
