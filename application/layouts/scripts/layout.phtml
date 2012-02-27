@@ -34,7 +34,7 @@
             </ul>
 			<p class="navbar-text pull-right">
 			<?php if($this->LoggedUser()):?>
-				Logged in as <a href="#"><?= $this->LoggedUser('username'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
+				Logged in as <a href="#"><?= $this->LoggedUser('name'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
 			<?php else: ?>
 				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>">Sign in</a>
 			<?php endif; ?>

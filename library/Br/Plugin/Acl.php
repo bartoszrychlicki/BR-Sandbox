@@ -17,7 +17,7 @@ class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		$acl = new Br_Acl_Acl();
 		$loggedUser = Zend_Auth::getInstance()->getIdentity();
 		
-	    if($acl->isAllowed($loggedUser['realm'], $request, null) === false) {
+	    if($acl->isAllowed($loggedUser->id, $request, null) === false) {
 			//If the user has no access we send him elsewhere by changing the request
 			$messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
 			$messenger->addMessage(array('warning' => 'You dont have access here, please login'));
