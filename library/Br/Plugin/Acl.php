@@ -2,28 +2,32 @@
 /**
 * 
 */
-class Br_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract
+class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
-	private $_acl = null;
-	
-	public function __construct(Zend_Acl $acl) {
-	    $this->_acl = $acl;
-	}
 	
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-	    $role = (Zend_Auth::getInstance()->hasIdentity()) ? 'user' : 'guest';
-	    //For this example, we will use the controller as the resource:
-		$resource = $request->getControllerName();
-
-	    if(!$this->_acl->isAllowed($role, $resource, 'view')) {
+		$config = $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
+		if(!$config->production->acl->use) {
+			return false;
+		}
+		if(
+			($request->getModuleName() == 'user' and $request->getActionName() == 'index' and $request->getControllerName() == 'index')
+		) { return true; }
+		
+		$acl = new Br_Acl_Acl();
+		$loggedUser = Zend_Auth::getInstance()->getIdentity();
+		
+	    if($acl->isAllowed($loggedUser['realm'], $request, null) === false) {
 			//If the user has no access we send him elsewhere by changing the request
-			$request->setModuleName('auth')
-					->setControllerName('auth')
-					->setActionName('login')
+			$messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+			$messenger->addMessage(array('warning' => 'You dont have access here, please login'));
+			$request->setModuleName('user')
+					->setControllerName('index')
+					->setActionName('index')
 					->setDispatched(false);
 			return false;
 		}
-
+	}
 }
 
 ?>

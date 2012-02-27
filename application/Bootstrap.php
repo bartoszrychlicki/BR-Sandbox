@@ -7,6 +7,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$front = Zend_Controller_Front::getInstance(); 
 		// Layout for modules initialization by FC plugin
 		$front->registerPlugin(new Br_Plugin_ModuleLayout());
+		// ACL pluginin
+		$front->registerPLugin(new Br_PLugin_Acl());
 	}
 	
 	protected function _initDoctype()
@@ -84,7 +86,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		}
 		$options = array(
 			'plugins' => array('Variables',
-		    //'Database' => array('adapter' => $db), 
+		    'Database' => array('adapter' => $db), 
             'File' => array('basePath' => APPLICATION_PATH),
             //'Cache' => array('backend' => $cache->getBackend()), 
             'Exception')		
