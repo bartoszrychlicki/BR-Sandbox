@@ -1,0 +1,7 @@
+<h3>Roles list</h3>
+<ul>
+<?php foreach($this->roles as $role) { ?>
+	<li><?=$role->name;?> [<a href="<?= $this->url(array('id' => $role->id)); ?>">modify</a>]</li>
+<?php } ?>
+</ul>
+<?= $this->form; ?>
