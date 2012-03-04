@@ -17,12 +17,12 @@ class Br_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		$acl = new Br_Acl_Acl();
 		$loggedUser = Zend_Auth::getInstance()->getIdentity();
 		if(!$loggedUser) {
-			$userId = 1;
+			$roleId = 1;
 		} else {
-			$userId = $loggedUser->id;
+			$roleId = $loggedUser->aclrole_id;
 		}
 		
-	    if($acl->isAllowed($userId, $request, null) === false) {
+	    if($acl->isRoleAllowed($roleId, $request, null) === false) {
 			//If the user has no access we send him elsewhere by changing the request
 			$messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
 			$messenger->addMessage(array('warning' => 'You dont have access here, please login'));

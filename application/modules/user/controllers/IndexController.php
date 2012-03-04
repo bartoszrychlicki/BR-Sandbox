@@ -24,7 +24,7 @@ class User_IndexController extends Br_Controller_Action
 					// access granted
 					$user = $adapter->getResultRowObject();
 					$auth->getStorage()->write($user);
-					
+					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
 					$this->_helper->FlashMessenger(array('success' => 'Zostałeś zalogowany'));
 					$this->_helper->Redirector('index', 'index', '');
 				} else {

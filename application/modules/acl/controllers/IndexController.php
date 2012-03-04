@@ -21,7 +21,10 @@ class Acl_IndexController extends Br_Controller_Action
 	{
 		$roleTable = new Zend_Db_Table('aclrole');
 		
-		$roles = $roleTable->fetchAll();
+		if(!$roles = $roleTable->fetchAll()) {
+			throw new Exception("No roles in the database, that's akward. You should at least have guest role.", 500);
+			
+		}
 		$this->view->roles = $roles;
 		
 		// Fetching form for new role
