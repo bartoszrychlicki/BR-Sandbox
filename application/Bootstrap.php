@@ -37,11 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		    '/js/bootstrap.min.js',
 		    'text/javascript'
 		);
-		
-		$script = '$(".alert").alert()';
-		$view->headScript()->appendScript($script, $type = 'text/javascript', $attrs = array());
-
-		
+				
 	}
 
 	protected function _initJquery()
