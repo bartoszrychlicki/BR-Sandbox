@@ -36,15 +36,15 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQuery("form");
     }
 
-    public function testPassignRightValuesWillGetMeInOnDigest()
+    public function testPassignRightValuesWillGetMeIn()
     {
 		$this->request->setMethod('post')
 						->setPost(array(
-							'username' => 'brdesign',
+							'username' => 'b@br-design.pl',
 							'password'	=> 'brdesign',
 							));
 	
-        $this->dispatch('/user');
+        $this->dispatch('/user/index');
         
         // assertions
         $this->assertRedirectTo('/');
