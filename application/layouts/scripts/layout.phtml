@@ -28,13 +28,17 @@
           <a class="brand" href="#">BR-Sandbox</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="<?= $this->url(array('module' => 'admin')); ?>">Admin</a></li>
-             
+				<li class="active"><a href="/">Home</a></li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">ACL<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="<?= $this->url(array('module'=> 'acl', 'action' => 'roles'));?>">Role managemnt</a></li>
+						
+					</ul>
+				</li>
             </ul>
 			<p class="navbar-text pull-right">
 			<?php if($this->LoggedUser()):?>
-				Logged in as <a href="#"><?= $this->LoggedUser('username'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
+				Logged in as <a href="<?= $this->url(array('module' => 'user', 'controller' => 'index', 'action'=>'profile'));?>"><?= $this->LoggedUser('name'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
 			<?php else: ?>
 				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>">Sign in</a>
 			<?php endif; ?>

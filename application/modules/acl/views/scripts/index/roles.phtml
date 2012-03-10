@@ -1,0 +1,26 @@
+<h3>Roles list</h3>
+<ul>
+<?php foreach($this->roles as $role) { ?>
+	<li><?=$role->name;?> 
+	<a class="btn" href="<?= $this->url(array('id' => $role->id)); ?>">modify</a>
+	<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">delete</a></li>
+<?php } ?>
+</ul>
+<?= $this->form; ?>
+<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+
+<?php foreach($this->roles as $role) { ?>
+<div class="modal fade" id="deleteModal<?= $role->id; ?>">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Confirmation</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are You sure You want to delete role <strong><?php echo $role->name;?></strong>?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">Save changes</a>
+    <a href="#" class="btn">Close</a>
+  </div>
+</div>
+<?php } ?>

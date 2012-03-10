@@ -25,7 +25,7 @@ class Br_View_Helper_LoggedUser extends Zend_View_Helper_Abstract
 		$this->_getUser();
 		if(!$this->_identity) return false;
 		if($property === null) return $this->_identity;
-		return $this->_identity[$property];
+		return $this->_identity->$property;
 	}
 	
 	private function _getUser()
