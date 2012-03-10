@@ -8,7 +8,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		// Layout for modules initialization by FC plugin
 		$front->registerPlugin(new Br_Plugin_ModuleLayout());
 		// ACL pluginin
-		$front->registerPLugin(new Br_PLugin_Acl());
+		$front->registerPLugin(new Br_Plugin_Acl());
 	}
 	
 	protected function _initDoctype()
