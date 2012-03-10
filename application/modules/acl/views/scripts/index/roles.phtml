@@ -1,13 +1,29 @@
 <h3>Roles list</h3>
-<ul>
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+		<tr>
+			<th>Role name</th>
+			<th>Options</th>
+		</tr>
+	</thead>
 <?php foreach($this->roles as $role) { ?>
-	<li><?=$role->name;?> 
-	<a class="btn" href="<?= $this->url(array('id' => $role->id)); ?>">modify</a>
-	<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">delete</a></li>
+	<tbody>
+	<tr>
+		<td><?=$role->name;?></td>
+		<td><a class="btn" href="<?= $this->url(array('id' => $role->id)); ?>">
+			<i class="icon-pencil icon-black"></i>
+			Modify
+			</a>
+		<a data-toggle="modal" data-target="#deleteModal<?= $role->id; ?>" class="btn icon-trash btn-danger" href="<?php echo $this->url(array('id' => $role->id, 'action' => 'delete-Role')); ?>">
+			<i class="icon-trash icon-white"></i>
+			Delete</a></td>
+		</tr>
+	</tbody>
 <?php } ?>
-</ul>
-<?= $this->form; ?>
-<a class="btn" data-toggle="modal" href="#myModal" >Launch Modal</a>
+</table>
+
+<?php //new role form
+echo $this->form; ?>
 
 <?php foreach($this->roles as $role) { ?>
 <div class="modal fade" id="deleteModal<?= $role->id; ?>">
@@ -19,8 +35,12 @@
     <p>Are You sure You want to delete role <strong><?php echo $role->name;?></strong>?</p>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn btn-primary">Save changes</a>
-    <a href="#" class="btn">Close</a>
+	<?php
+	$form = new Acl_Form_RoleDelete();
+	$form->setName('deleteRoleId'.$role->id);
+	$form->populate($role->toArray());
+	echo $form;
+	?>
   </div>
 </div>
 <?php } ?>

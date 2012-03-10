@@ -33,7 +33,7 @@ class Acl_IndexController extends Br_Controller_Action
 		
 		$form = new Acl_Form_Role();
 		$roleId = $request->getParam('id');
-		if(is_numeric($roleId)) {
+		if(is_numeric($roleId) and $roleId > 0) {
 			$role = $roleTable->find($roleId)->current();
 			$form->populate($role->toArray());
 	        $form->getDisplayGroup('Role')->setLegend('Modify role ' . $role->name);
@@ -46,7 +46,7 @@ class Acl_IndexController extends Br_Controller_Action
 				}
 				$role->name = $post['name'];
 				$role->save();
-				$this->_helper->FlashMessenger(array('success' => 'Changes to role saved'));
+				$this->_helper->FlashMessenger(array('success' => 'Changes to roles saved successfully'));
 				$this->_helper->Redirector('roles', 'index', 'acl');
 				
 			}
@@ -58,14 +58,17 @@ class Acl_IndexController extends Br_Controller_Action
 	public function deleteRoleAction() {
 		$request = $this->getRequest();
 		$roleId = $request->getParam('id');
-		if(!is_numeric($roleId)) {
+		if(!is_numeric($roleId) and $roleId > 0) {
 			throw new Exception('There is no role ID in the request, so what to delete', 500);
 		}
 		
 		$roleTable = new Zend_Db_Table('aclrole');
-		
+
 		$role = $roleTable->find($roleId)->current();
 		
+		if(!$role) {
+			throw new Exception("Could not find role ID: ".$roleId, 500);
+		}
 		$form = new Acl_Form_RoleDelete();
 		
 		if($request->isPost()) {
