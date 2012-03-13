@@ -3,6 +3,12 @@
 class User_IndexController extends Br_Controller_Action
 {
 
+	/**
+	 * This is a login action, it uses Zend_Auth compontent to authorize user based on data in DB.
+	 *
+	 * If the auth is success, then the credentials are stored in SESSION.
+	 * 
+	 */
     public function indexAction()
     {
 		$this->_helper->addPrefix('Br_Controller_Action_Helper');
@@ -63,7 +69,6 @@ class User_IndexController extends Br_Controller_Action
             ->setCredentialColumn('password')
             ->setCredentialTreatment('SHA1(CONCAT(?,salt))');
             
-        
         return $authAdapter;
 	}
 }
