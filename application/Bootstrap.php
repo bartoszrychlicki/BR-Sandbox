@@ -18,6 +18,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->doctype('XHTML1_STRICT');
     }
 
+	protected function _initLocale() {
+	    $localeValue = 'pl';
+
+	    $locale = new Zend_Locale($localeValue);
+	    Zend_Registry::set('Zend_Locale', $locale);
+
+	    $translate = new Zend_Translate(array(
+			'adapter' => 'csv',
+			'content' => APPLICATION_PATH . '/../data/languages/',
+			'scan' => Zend_Translate::LOCALE_FILENAME
+		));
+	    Zend_Registry::set('Zend_Translate', $translate);
+	}
+
 	protected function _initViewHelpersPaths()
 	{
         $this->bootstrap('view');
@@ -57,7 +71,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->headMeta()->appendHttpEquiv('Content-Type',
 		                                   'text/html; charset=UTF-8')
 		                 ->appendHttpEquiv('Content-Language', 'en-US');
-		$view->headTitle('AssList');
+		$view->headTitle('BR-Sandbox');
 		$view->headTitle()->setSeparator(' / ');
     }
 

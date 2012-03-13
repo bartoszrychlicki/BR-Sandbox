@@ -33,21 +33,28 @@ class Acl_IndexController extends Br_Controller_Action
 		
 		$form = new Acl_Form_Role();
 		$roleId = $request->getParam('id');
+
 		if(is_numeric($roleId) and $roleId > 0) {
-			$role = $roleTable->find($roleId)->current();
+			if(!$role = $roleTable->find($roleId)->current()) {
+				throw new Exception("No role id DB that have ID=".$roleId, 1);
+			}
 			$form->populate($role->toArray());
 	        $form->getDisplayGroup('Role')->setLegend('Modify role ' . $role->name);
 		}
 		
 		if($request->isPost()) {
 			if($form->isValid($post = $request->getPost())) {
-				if(!$role) { // new role
+				
+				if(!isset($role)) { // new role
 					$role = $roleTable->createRow();
 				}
+				
 				$role->name = $post['name'];
 				$role->save();
 				$this->_helper->FlashMessenger(array('success' => 'Changes to roles saved successfully'));
 				$this->_helper->Redirector('roles', 'index', 'acl');
+			} else { //form not valid
+				$this->_helper->FlashMessenger(array('warning' => 'There where some errors saving to roles list, please fix them'));
 				
 			}
 		}

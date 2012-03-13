@@ -8,15 +8,14 @@ class Acl_Form_Role extends EasyBib_Form
         $this->setMethod('post');
         $this->setAttrib('class', 'form-horizontal');
         
-		$cancel      = new Zend_Form_Element_Button('cancel');
-        
         $this->addElement('text', 'name', array(
             'filters'    => array('StringTrim'),
             'validators' => array(
-                array('StringLength', false, array(0, 50)),
+                array('StringLength', false, array(0, 25)),
+				array('alnum'),
             ),
             'required'   => true,
-            'label'      => 'Role name:',
+            'label'      => 'Role name',
         ));
 
 		$this->addElement('hidden', 'id', array(
@@ -24,11 +23,10 @@ class Acl_Form_Role extends EasyBib_Form
 			));
 
 		
-		$submit      = new Zend_Form_Element_Button('submit');
+		$submit = new Zend_Form_Element_Button('submit');
         
         $submit->setLabel('Save');
 		$this->addElement($submit);
-		$this->addElement($cancel);
 		
 		// add display group
         $this->addDisplayGroup(

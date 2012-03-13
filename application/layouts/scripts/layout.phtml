@@ -40,7 +40,7 @@
 			<?php if($this->LoggedUser()):?>
 				Logged in as <a href="<?= $this->url(array('module' => 'user', 'controller' => 'index', 'action'=>'profile'));?>"><?= $this->LoggedUser('name'); ?></a>. <a href="<?= $this->url(array('action' => 'logout', 'controller' => 'index', 'module' => 'user')); ?>">Log out</a> perhaps?
 			<?php else: ?>
-				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>">Sign in</a>
+				<a href="<?= $this->url(array('action' => 'index', 'controller' => 'index', 'module' => 'user')); ?>"><?= $this->translate('Sign in'); ?></a>
 			<?php endif; ?>
 			</p>
           </div><!--/.nav-collapse -->

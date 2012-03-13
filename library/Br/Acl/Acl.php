@@ -35,11 +35,11 @@ class Br_Acl_Acl extends Zend_Acl {
 		$select = $db->select(array('module_name', 'controller_name', 'action_name'))
 			->from('aclprivilege')
 			->where('role_id = ?', $roleId)
-			->where('module = "?" OR module = "%"', $request->getModuleName())
-			->where('controller = "?" OR controller = "%"', $request->getControllerName())
-			->where('action = "?" OR action = "%"', $request->getActionName())
-			->join('aclrole', 'aclrole.id = aclprivilege.role_id')
-			->join('acluser', 'acluser.aclrole_id = aclrole.id');
+			->where('module = ? OR module = "%"', $request->getModuleName())
+			->where('controller = ? OR controller = "%"', $request->getControllerName())
+			->where('action = ? OR action = "%"', $request->getActionName());
+//			->join('aclrole', 'aclrole.id = aclprivilege.role_id');
+//			->join('acluser', 'acluser.aclrole_id = aclrole.id');
 		$stmt = $db->query($select);
 		$result = $stmt->fetchAll();
 		if(count($result) == 0) { 

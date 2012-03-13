@@ -33,6 +33,7 @@ class ErrorController extends Zend_Controller_Action
         if ($log = $this->getLog()) {
             $log->log($this->view->message, $priority, $errors->exception);
             $log->log('Request Parameters', $priority, $errors->request->getParams());
+			$log->log('Exception message: '.$errors->exception->getMessage(), $priority);
         }
         
         // conditionally display exceptions

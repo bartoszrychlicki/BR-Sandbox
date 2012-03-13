@@ -26,7 +26,7 @@ class User_IndexController extends Br_Controller_Action
 					$auth->getStorage()->write($user);
 					$this->_helper->FlashMessenger->clearCurrentMessages(); // to remove any ACL "You dont have access messages if any"
 					$this->_helper->FlashMessenger(array('success' => 'Zostałeś zalogowany'));
-					$this->_helper->Redirector('index', 'index', '');
+					$this->_helper->Redirector('index', 'index', 'default');
 				} else {
 					$this->_helper->FlashMessenger(array('error' => 'Podałeś zły login lub hasło'));
 				}
