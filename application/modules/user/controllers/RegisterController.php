@@ -25,12 +25,9 @@ class User_RegisterController extends Zend_Controller_Action
 		if($request->isPost()) {
 			$post = $request->getPost();
 			if($form->isValid($post)) { // data in the form are valid so we can register new user
-				$user = $userTable->createRow($data); // we are creating new user object based on row class
-				if($user->isValid()) { // form protects... but it does no harm to a double check
-					$user->save();
-				} else {
-					Zend_Debug::dump($user->getMessages());
-				}
+					$username = $post['username'];
+					$password = $post['password'];
+					$userTable->registerNewUser($username, $password, $post); //registration 
 			}
 		}
 		

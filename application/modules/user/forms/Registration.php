@@ -20,25 +20,21 @@ class User_Form_Registration extends EasyBib_Form
             'filters'    => array('StringTrim', 'StringToLower'),
             'validators' => $this->_rowModel->getValidator('username'),
             'required'   => true,
-            'label'      => 'Username:',
+            'label'      => 'Username',
         ));
 
         $this->addElement('password', 'password', array(
             'filters'    => array('StringTrim'),
-            'validators' => array(
-                array('StringLength', false, array(0, 50)),
-            ),
+            'validators' => $this->_rowModel->getValidator('password'),
             'required'   => true,
-            'label'      => 'Password:',
+            'label'      => 'Password',
         ));
 
 	    $this->addElement('password', 'password_confirmation', array(
 	        'filters'    => array('StringTrim'),
-	        'validators' => array(
-	            array('StringLength', false, array(0, 50)),
-	        ),
+	        'validators' => $this->_rowModel->getValidator('confirm_password'),
 	        'required'   => true,
-	        'label'      => 'Repeat password:',
+	        'label'      => 'Repeat password',
 	    ));
 		
 		$submit      = new Zend_Form_Element_Button('submit');
