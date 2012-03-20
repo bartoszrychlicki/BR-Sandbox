@@ -18,7 +18,7 @@ class User_RegisterController extends Zend_Controller_Action
         //1. We need to display form for user registration. Remeber that model also should
 		// have validation
 		$request 	= $this->getRequest();
-		$userTable	= new User_Model_User();
+		$userTable	= new User_Model_DbTable_User();
 		
 		$form 		= $this->getRegistrationForm($userTable->createRow());
 		
