@@ -1,8 +1,8 @@
 <?php
-class User_Model_User extends Zend_Db_Table_Abstract
+class User_Model_DbTable_User extends Br_Db_Table_Abstract
 {
     protected $_name = 'acluser';
-	protected $_rowClass = 'User_Model_User_Row'; // You can supply any Zend_Db_Table_Row object that implemenets User_Model_User_Interface for a userclass
+	protected $_rowClass = 'User_Model_DbTable_Row_User'; // You can supply any Zend_Db_Table_Row object that implemenets User_Model_User_Interface for a userclass
 	
 	/**
 	 * This function save an user object (any Zend_Db_Table_Row Object passed

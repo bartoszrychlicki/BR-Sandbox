@@ -2,7 +2,7 @@
 /**
 * 
 */
-class User_Model_User_Row extends Br_Db_Table_Row_Abstract implements User_Model_User_Interface
+class User_Model_DbTable_Row_User extends Br_Db_Table_Row_Abstract
 {
 	protected $_validators = array(
 		'username' => array(
