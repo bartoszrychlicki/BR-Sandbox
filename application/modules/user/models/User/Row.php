@@ -2,17 +2,17 @@
 /**
 * 
 */
-class User_Model_User_Row extends Br_Db_Table_Row implements User_Model_User_Interface
+class User_Model_User_Row extends Br_Db_Table_Row_Abstract implements User_Model_User_Interface
 {
 	protected $_validators = array(
 		'username' => array(
-			'Alpha', array('StringLength', false, array(3, 20)),
+			'EmailAddress', array(),
 			),
 	);
 	
 	public function setUsername($username) 
 	{
-		$this->username = $username;
+		$this->email = $username;
 		return $this;
 	}
 	
@@ -21,14 +21,24 @@ class User_Model_User_Row extends Br_Db_Table_Row implements User_Model_User_Int
 		return $this->username;
 	}
 	
+	public function setSalt($salt)
+	{
+		$this->salt = $salt;
+		return $this;
+	}
+	
 	public function setPassword($password)
 	{
-		if($salt) {
-			$password = md5($password.$salt);
-		} else {
-			$password = md5($password);
-		}
+		$salt = $this->_generateSalt();
+		$this->setSalt($salt);
+		
+		$password = sha1($password . $salt);
 		$this->password = $password;
 		return $this;
+	}
+	
+	protected function _generateSalt()
+	{
+		return md5(substr(str_repeat('loremipsumsitdoloramter', rand(20,40)), rand(20,200), rand(201, 1000))) . time();
 	}
 }

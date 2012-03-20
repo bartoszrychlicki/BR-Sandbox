@@ -62,7 +62,7 @@ class Acl_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 	public function testPostingAnIdAndNewNameOfRoleWillModifyIt()
 	{
 		$this->request->setMethod('get');
-		$this->dispatch('/acl/index/roles/id/9');
+		$this->dispatch('/acl/index/roles/id/1');
 		
 		// assertions
 		$this->assertNotController('error');

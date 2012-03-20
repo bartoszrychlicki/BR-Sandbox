@@ -12,7 +12,7 @@ class User_Model_User extends Zend_Db_Table_Abstract
 	 * @param String $password User plain password (not hashed)
 	 * @param Array $data All other data that You want to save with user
 	 */
-	public function registerNewUser(String $username, String $password, $data = array())
+	public function registerNewUser($username, $password, $data = array())
 	{
 		$newUser = $this->createRow(); // creating new user object from $_rowClass/
 		if(!$newUser instanceof User_Model_User_Interface) {

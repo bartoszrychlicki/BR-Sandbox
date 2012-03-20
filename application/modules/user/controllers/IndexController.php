@@ -67,7 +67,7 @@ class User_IndexController extends Br_Controller_Action
         $authAdapter->setTableName('acluser')
             ->setIdentityColumn('email')
             ->setCredentialColumn('password')
-            ->setCredentialTreatment('MD5(CONCAT(?,salt))');
+            ->setCredentialTreatment('SHA1(CONCAT(?,salt))');
             
         return $authAdapter;
 	}
