@@ -1,7 +1,7 @@
 global:
   env:
     - APPLICATION_ENV: production
-web1: #component type & number
+web1.1: #component type & number
   name: sandbox            #component settings
   shared_writable_dirs:
     - data/logs
