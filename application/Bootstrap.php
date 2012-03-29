@@ -60,7 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('view');
 
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
-        $view->JQuery()->setLocalPath('/js/jquery-1.7.1.min.js');
+        $view->JQuery()->setLocalPath('/js/jquery-1.7.2.min.js');
         $view->JQuery()->enable();
 	}
 
@@ -73,6 +73,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		                 ->appendHttpEquiv('Content-Language', 'en-US');
 		$view->headTitle('BR-Sandbox');
 		$view->headTitle()->setSeparator(' / ');
+		
+		// adding noindex, no fallow to all non-production instances
+		if(APPLICATION_ENV != 'production') {
+		    $view->headMeta()->appendName('nofallow,noindex', 'robots');
+		}
     }
 
 	protected function _initFireBugLogger()
